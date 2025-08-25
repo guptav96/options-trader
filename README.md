@@ -13,18 +13,28 @@ learning model that suggests future options trades based on historical data.
    pip install -r requirements.txt
    ```
 
-2. Ensure the source directory is on your Python path and run the example
-   training script:
+2. Ensure the source directory is on your Python path and run one of the
+   example training scripts:
 
    ```bash
    export PYTHONPATH=src
+   # Option price example
    python -m options_trader.train
+
+   # Tesla stock price example via QuantConnect
+   export QC_USER_ID=<your-user-id>
+   export QC_API_TOKEN=<your-api-token>
+   python -m options_trader.tsla_example
    ```
 
-The script downloads a single option chain using `yfinance`, prepares a simple
-feature matrix and fits a `RandomForestRegressor` to predict option prices.  The
-pipeline is intentionally basic and serves as a foundation for more advanced
-research into profitable options strategies.
+`options_trader.train` downloads a single option chain using `yfinance`,
+prepares a simple feature matrix and fits a `RandomForestRegressor` to predict
+option prices.  `options_trader.tsla_example` uses QuantConnect's Data API to
+download daily Tesla prices for 2025, trains a model to predict the next day's
+close and reports the RMSE. These pipelines are intentionally basic and serve as
+foundations for more advanced research into profitable strategies. QuantConnect
+credentials are required for the stock example and may incur data costs; see the
+QuantConnect terms of use for details.
 
 ## Project Structure
 
